@@ -1,11 +1,11 @@
 import './App.css'
 
-import Headings from "./components/headings.jsx";
+import Home from "./pages/Home.jsx";
 
 
 export default function App() {
   return (
-      <Headings /> 
+      <Home /> 
     
   );
 }

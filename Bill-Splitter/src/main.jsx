@@ -1,18 +1,18 @@
-// import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+// import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+// import Scanner from "./pages/Scanner.jsx";
+// import Manual from "./pages/Manual.jsx";
 import "./index.css";
-import App from "./App.jsx";
-import Scanner from "./components/Scanner.jsx"
-import Manual from "./components/Manual.jsx"
 
-createRoot(document.getElementById("root")).render(
-    <BrowserRouter>
-      <Routes>
-        <Route path="/app" element={<App />}></Route>
-        <Route path="/scanner" element={<Scanner />}></Route>
-        <Route path="/manual" element={<Manual />}></Route>
-      </Routes>
-    </BrowserRouter>
-    
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      {/* <Route path="/scanner" element={<Scanner />} /> */}
+      {/* <Route path="/manual" element={<Manual />} /> */}
+    </Routes>
+  </BrowserRouter>
 );
+
