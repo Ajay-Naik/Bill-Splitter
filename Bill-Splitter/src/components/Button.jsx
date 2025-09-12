@@ -1,6 +1,6 @@
 import './Button.css'
 
-export default function Button({icon, name, color, bg_color}) {
+export default function Button({name, color, bg_color}) {
     let styles = {
         
         color : color,

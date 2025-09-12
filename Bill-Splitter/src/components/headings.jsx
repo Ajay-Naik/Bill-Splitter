@@ -11,8 +11,12 @@ export default function Headings() {
            <p>Snap the receipt, tap your items, see who owes what. No sign-ups, no math, no drama</p>
        </div>  
        <div className="buttons">
-          <Button name={"📷 Scan receipt"} color={"#f8f8ff"} bg_color={"#d44326"}/>
-          <Button name={"Enter Manually"} color={"black"} bg_color={"white"}/>
+        <Link to="/scanner">
+            <Button name={"📷 Scan receipt"} color={"#f8f8ff"} bg_color={"#d44326"}/>
+          </Link>
+          <Link to="/manual">
+             <Button name={"Enter Manually"} color={"black"} bg_color={"white"}/>
+          </Link>
        </div>
     </div>
   </>
