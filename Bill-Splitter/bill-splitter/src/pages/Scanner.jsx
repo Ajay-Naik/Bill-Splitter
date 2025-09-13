@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx"
-import Backbutton from "../components/BackButton.jsx"
 import "../styles/Global.css";
 import FileDropZone from "../components/input.jsx"
+import { ArrowLeft } from "lucide-react"
 
 export default function Scanner() {
    const navigate = useNavigate()
@@ -17,7 +17,14 @@ export default function Scanner() {
 }
     return (
         <div>
-            <Backbutton onClick={() => navigate("/")}/>
+            <Button
+            className={"backBtn"}
+                      icon={ArrowLeft}
+                      name={"Back"}
+                      color={"black"}
+                      bg_color={"none"}
+                      onClick={() => navigate("/")} 
+                    />
             <h2>Scan Receipt</h2>
             <p>Take a photo or upload an image of your receipt</p>
 

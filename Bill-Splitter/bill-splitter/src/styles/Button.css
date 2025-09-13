@@ -40,7 +40,9 @@
     border: none;
     cursor: pointer;
     font-size: 16px;
-    margin-left: -7px;
+    margin-left: -20px;
+    background-color: none;
+    color: black;
     gap: 10px;
 }
 .backBtn:focus{

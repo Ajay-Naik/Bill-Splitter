@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Scanner from "./pages/Scanner.jsx";
-import Manual from "./pages/Manual.jsx";
+// import Manual from "./pages/Manual.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/scanner" element={<Scanner />} />
-      <Route path="/manual" element={<Manual />} />
+      {/* <Route path="/manual" element={<Manual />} /> */}
     </Routes>
   </BrowserRouter>
 );
