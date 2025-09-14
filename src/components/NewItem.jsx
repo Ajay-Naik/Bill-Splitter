@@ -15,7 +15,7 @@ export default function NewItem({ item, onUpdate, onDelete, inputRef }) {
           />
 <span  style={{color:"black",fontWeight:"400",fontSize:"20px"}}> ₹ </span>
     <input type="number" 
-     inputmode="numeric" 
+     inputMode="numeric" 
           placeholder="0.00" 
           min={0}
           //  step={0.01}
