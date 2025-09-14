@@ -7,7 +7,7 @@ import Manual from "./pages/Manual.jsx";
 import "./styles/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename="/Bill-Splitter">
+  <BrowserRouter basename="/Bill-Splitter/Bill-Splitter">
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/scanner" element={<Scanner />} />
