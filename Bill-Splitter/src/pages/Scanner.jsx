@@ -25,9 +25,8 @@ export default function Scanner() {
              
             <Button
               className={"homeBtn"}
-              width={"100%"}
                 name={"Scrape the bill"}
-                color={"#f8f8ff"}
+                    color={"#f8f8ff"}
                 bg_color={"#d44326"}
                 onClick={() => navigate("/scanner")} 
             />

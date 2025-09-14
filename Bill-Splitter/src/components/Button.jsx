@@ -1,8 +1,8 @@
 import '../styles/Button.css'
 
-export default function Button({name, className, color, bg_color, width, onClick, icon: Icon}) {
+export default function Button({name, className, color, bg_color, onClick, icon: Icon, fontSize}) {
     let styles = {   
-        width : width,
+        fontSize : fontSize,
         color : color,
         backgroundColor : bg_color
     }

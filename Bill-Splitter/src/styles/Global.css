@@ -1,4 +1,4 @@
-.container{
+    .container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,6 +6,16 @@
     width: 100%;
     margin-top: 30px;
 }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  /* -webkit-appearance: none;  */
+  /* margin: 0;  */
+  background-color: #9e9c9c !important;
+  color: #9e9c9c;
+}
+   
+
 .headings{
     text-align: center;
     margin-top: 50px;
@@ -31,6 +41,21 @@ p{
    gap: 20px;
    flex-direction: column;
 }
+input{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #d4d1d1ff;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 300px;
+    /* margin-bottom: 10px; */
+    color: rgb(41, 41, 41);
+}
+input:focus{
+    outline: none;
+    border: 1px solid #9e9c9c;
+}
+
 @media (max-width: 600px) {
     h1{
         font-size: 30px;
