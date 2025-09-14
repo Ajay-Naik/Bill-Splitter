@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
@@ -7,7 +7,7 @@ import Manual from "./pages/Manual.jsx";
 import "./styles/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/Bill-Splitter">
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/scanner" element={<Scanner />} />
