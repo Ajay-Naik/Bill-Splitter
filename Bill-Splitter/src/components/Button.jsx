@@ -1,0 +1,12 @@
+import '../styles/Button.css'
+
+export default function Button({name, className, color, bg_color, onClick, icon: Icon, fontSize}) {
+    let styles = {   
+        fontSize : fontSize,
+        color : color,
+        backgroundColor : bg_color
+    }
+    return (
+        <button style={styles} className={className} onClick={onClick}>{Icon && <Icon size={20}/> } {name}</button>
+    )   
+}

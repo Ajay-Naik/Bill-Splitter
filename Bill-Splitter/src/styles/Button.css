@@ -1,0 +1,58 @@
+button {
+    width: 100%;
+}
+.homeBtn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    gap: 10px;
+    /* margin: 10px; */
+    /* background-color: var(--bg-color); */
+    color: var(--text-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* transition: background-color 0.3s ease, color 0.3s ease; */
+}
+/* .homeBtn:hover {
+    background-color: var(--bg-color-hover);
+    color: var(--text-color-hover);
+} */
+.homeBtn:active {
+    border: none;
+    transform: scale(1.01);
+    transition: ease-in-out;
+}
+
+@media (max-width: 600px) {
+    .homeBtn{
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+svg{
+    background-color: transparent;
+}
+.backBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    font-size: 16px;
+    margin-left: -7px;
+    gap: 10px;
+}
+.backBtn:focus{
+    border: none;
+}
+.scannerBtn{
+    width: 100% !important;
+}
