@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import Button from "../components/Button.jsx";
+import Grid from "../components/Grid.jsx";
 import NewItem from "../components/NewItem.jsx";
 import Backbutton from "../components/BackButton.jsx";
 import "../styles/Global.css";
@@ -71,9 +72,12 @@ export default function Manual() {
         bg_color="#bebebeff"
         onClick={addItem}
       />
+      <Grid name="Tax" />
+      <Grid name="Tip" />
       
-      <div style={{ marginTop: 12, color: "#191919ff", padding: 10, borderRadius: 4, fontSize: 18 }}>
-        <strong >Total: </strong> ₹{total.toFixed(2)}
+
+      <div style={{ marginTop: 12, color: "#282828ff", fontSize: 18,width:"100%",display:"flex",justifyContent:"space-between" }}>
+        <strong >Total: </strong><span style={{}}> ₹  {total.toFixed(2)}</span>
       </div>
 
       <Button
