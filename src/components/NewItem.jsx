@@ -23,7 +23,7 @@ export default function NewItem({ item, onUpdate, onDelete, inputRef }) {
             onChange={(e) => {
           const v = e.target.value;
          
-          onUpdate(item.id, { ...item, price: v });
+          onUpdate(item.id, { ...item, price: v === "" ? "" : parseFloat(v)  });
         }}
         style={{ width: 100 }}
           />
