@@ -33,7 +33,7 @@ function FileDropZone() {
         borderRadius: "8px",
         padding: "20px",
         margin:"20px 0",
-        height:"30rem",
+        // height:"30rem",
         textAlign: "center",
         cursor: "pointer",
       }}
@@ -42,7 +42,7 @@ function FileDropZone() {
       {isDragActive ? (
         <p style={{textDecoration:"underline"}}>upload receipt</p>
       ) : (
-        <div style={{height:"30rem",borderRadius:"4px", backgroundColor:"#eeededff"}}>
+        <div style={{borderRadius:"4px", backgroundColor:"#eeededff"}}>
             <img src={Camera} alt="Camera" style={{width:"250px", height:"150px", marginTop:"80px"
             }}/>
             <h2 style={{fontWeight:"600"}}>Take a photo </h2><p style={{textDecoration:"underline", marginTop:"-10px"}}>or upload receipt</p></div>
@@ -64,7 +64,7 @@ function FileDropZone() {
             key={file.name}
             src={file.preview}
             alt={file.name}
-            style={{ width: "250px", marginTop: "10px", borderRadius: "8px" }}
+            style={{ width: "390px",height: "550px", marginTop: "-370px", borderRadius: "8px" }}
           />
         ))}
       </div>

@@ -14,7 +14,6 @@
 }
 
 * {
-
   background-color: #eeeeee;
   margin: 0;
 }
@@ -31,11 +30,40 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+.personPage {
+  width: 400px;
+  height: 600px;
+}
+.personPage h2 {
+  text-align: center;
+}
+.input-wrapper {
+  width: 500px;
+  position: relative;
+  margin: 20px 0;
+}
+.input-wrapper input{
+  width: 247px;
+ padding-left :150px;
+}
+
+
+.input-wrapper button {
+  position: absolute;
+  display: flex;
+  margin-top: -28px;
+  margin-left: 10px;
+  font-size: 15px;
+  border: none;
+  width: auto;
+  background-color: transparent;
+  cursor: pointer;
+  color: rgb(57, 57, 57);
+}
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
-
 }

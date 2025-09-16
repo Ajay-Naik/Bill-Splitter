@@ -4,6 +4,8 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Scanner from "./pages/Scanner.jsx";
 import Manual from "./pages/Manual.jsx";
+import Person from "./pages/person.jsx";
+import Summary from "./pages/Summary.jsx";
 import "./styles/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -12,6 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/" element={<Home />} />
       <Route path="/scanner" element={<Scanner />} />
       <Route path="/manual" element={<Manual />} />
+      <Route path="/person" element={<Person />} />
+      <Route path="/summary" element={<Summary />} />
+
     </Routes>
   </HashRouter>
 );

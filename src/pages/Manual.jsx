@@ -12,6 +12,11 @@ import { Plus } from "lucide-react";
 export default function Manual() {
   const navigate = useNavigate();
   let [items, setItems] = useState([]);
+  const [tax, setTax] = useState({ type: "%", amount: 0});
+  const [tip, setTip] = useState({ type: "%", amount: 0});
+
+
+
   const [lastAddedId, setLastAddedId ] = useState(null);
   const refs = useRef({})
 
@@ -39,17 +44,28 @@ export default function Manual() {
     }
    }, [lastAddedId, items]);
 
-     const total = items.reduce((sum, it) => {
+     const subtotal = items.reduce((sum, it) => {
     const p = parseFloat(it.price);
     return sum + (Number.isFinite(p) ? p : 0);
   }, 0);
 
+  const calculateExtra = (value, type) => {
+  if (!value) return 0;
+  return type === "%" ? (subtotal * value) / 100 : value;
+};
+
+const taxValue = calculateExtra(tax.amount, tax.type);
+const tipValue = calculateExtra(tip.amount, tip.type);
+
+const grandTotal = subtotal + taxValue + tipValue;
+
   return (
     <div style={{height:"600px", width:"400px"}}>
       <Backbutton onClick={() => navigate("/")} />
-      <h2>Receipt Items</h2>
+      <h2 style={{textAlign:"center"}}>Receipt Items</h2>
       <p>Type in your receipt details to split the bill</p>
-      
+
+     
         <ul style={{listStyleType:"none",padding:"0"}}>
             {items.map((item) => (
             <NewItem
@@ -72,12 +88,12 @@ export default function Manual() {
         bg_color="#bebebeff"
         onClick={addItem}
       />
-      <Grid name="Tax" />
-      <Grid name="Tip" />
+      <Grid name="Tax" data={tax} onChange={(newData) => setTax(newData)} />
+      <Grid name="Tip" data={tip} onChange={(newData) => setTip(newData)}/>
       
 
       <div style={{ marginTop: 12, color: "#282828ff", fontSize: 18,width:"100%",display:"flex",justifyContent:"space-between" }}>
-        <strong >Total: </strong><span style={{}}> ₹  {total.toFixed(2)}</span>
+        <strong >Total: </strong><span style={{}}> ₹  {grandTotal.toFixed(2)}</span>
       </div>
 
       <Button
@@ -86,7 +102,7 @@ export default function Manual() {
         fontSize= "16px"
         color="#f8f8ff"
         bg_color="#d44326"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/person")}
       />
     </div>
     </div>
