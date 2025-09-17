@@ -1,12 +1,11 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import Camera from "../assets/camera.png"
+import Camera from "../assets/camera.png";
 
-function FileDropZone() {
- const [previews, setPreviews] = React.useState([]);
+function FileDropZone({ onFileSelect }) {   // accept prop
+  const [previews, setPreviews] = React.useState([]);
 
   const onDrop = React.useCallback((acceptedFiles) => {
-    // Convert dropped files into objects with preview URLs
     const mapped = acceptedFiles.map((file) =>
       Object.assign(file, {
         preview: URL.createObjectURL(file),
@@ -14,60 +13,78 @@ function FileDropZone() {
     );
     setPreviews(mapped);
 
-    // Optional: log to check
-    console.log(mapped);
-  }, []);
-   const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    // pass the first file back to Scanner.jsx
+    if (onFileSelect) {
+      onFileSelect(mapped[0]);   // ✅ now Scanner gets the image
+    }
+  }, [onFileSelect]);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "image/*": [] // only allow images
+      "image/*": [],
     },
   });
+
+  // cleanup for object URLs
+  React.useEffect(() => {
+    return () => previews.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, [previews]);
 
   return (
     <div
       {...getRootProps()}
       style={{
         border: "none",
-        backgroundColor: "#fdf5f5ff",
+        backgroundColor: "	#E5E4E2",
         borderRadius: "8px",
         padding: "20px",
-        margin:"20px 0",
-        // height:"30rem",
+        // margin: "20px 0",
         textAlign: "center",
         cursor: "pointer",
-      }}
-    >
+      }}>
       <input {...getInputProps()} />
-      {isDragActive ? (
-        <p style={{textDecoration:"underline"}}>upload receipt</p>
-      ) : (
-        <div style={{borderRadius:"4px", backgroundColor:"#eeededff"}}>
-            <img src={Camera} alt="Camera" style={{width:"250px", height:"150px", marginTop:"80px"
-            }}/>
-            <h2 style={{fontWeight:"600"}}>Take a photo </h2><p style={{textDecoration:"underline", marginTop:"-10px"}}>or upload receipt</p></div>
+
+      {isDragActive && (
+        <p style={{ textDecoration: "underline" }}>Upload receipt</p>
       )}
 
-       {/* Show list of files */}
-      <ul>
-        {previews.map((file) => (
-          <li key={file.name}>
-            {file.name} - {file.size} bytes
-          </li>
-        ))}
-      </ul>
-
-      {/* Show image previews */}
-      <div>
-        {previews.map((file) => (
+      {previews.length === 0 ? (
+        <div style={{ borderRadius: "4px",        border:"1px dotted #36454F",
+ }}>
           <img
-            key={file.name}
-            src={file.preview}
-            alt={file.name}
-            style={{ width: "390px",height: "550px", marginTop: "-370px", borderRadius: "8px" }}
+            src={Camera}
+            alt="Camera"
+            style={{ width: "250px", height: "150px", marginTop: "80px" }}
           />
-        ))}
-      </div>
+          <h2 style={{ fontWeight: "600" }}>Take a photo</h2>
+          <p
+            style={{
+              textDecoration: "underline",
+              marginTop: "-10px",
+              paddingBottom: "50px",
+            }}>
+            or upload receipt
+          </p>
+        </div>
+      ) : (
+        <div style={{ marginTop: "10px" }}>
+          {previews.map((file) => (
+            <img
+              key={file.name}
+              src={file.preview}
+              alt={file.name}
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+                marginTop: "20px",
+                borderRadius: "8px",
+                marginBottom: "10px",
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

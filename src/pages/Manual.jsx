@@ -8,7 +8,7 @@ import NewItem from "../components/NewItem.jsx";
 import Backbutton from "../components/BackButton.jsx";
 import "../styles/Global.css";
 import "../styles/index.css";
-import { Plus } from "lucide-react";
+import { ArrowBigRight, Plus } from "lucide-react";
 
 export default function Manual() {
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ export default function Manual() {
           icon={Plus}
           name="Add item"
           color="#2d2d2eff"
-          bg_color="#bebebeff"
+          bg_color="var(--light-grey)"
           onClick={addItem}
         />
         <Grid name="Tax" data={tax} onChange={(newData) => setTax(newData)} />
@@ -95,6 +95,7 @@ export default function Manual() {
         <Button
           className="homeBtn"
           name="Continue"
+          icon={ArrowBigRight}
           fontSize= "16px"
           color="#f8f8ff"
           bg_color="#d44326"

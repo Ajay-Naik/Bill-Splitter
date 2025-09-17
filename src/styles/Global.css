@@ -1,3 +1,7 @@
+:root{
+    --light-grey: #D3D3D3;
+}    
+    
     .container{
     display: flex;
     flex-direction: column;
@@ -32,7 +36,7 @@ h1,h2{
 p{
     font-size: 18px;
     color: black;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 .buttons{
    display: flex;

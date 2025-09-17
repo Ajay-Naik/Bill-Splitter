@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Plus, X } from "lucide-react";
+import { Plus, X, ArrowBigRight } from "lucide-react";
 import Button from "../components/Button.jsx";
 import Backbutton from "../components/BackButton.jsx";
 import "../styles/index.css";
@@ -64,7 +64,7 @@ export default function Person() {
           onKeyDown={(e) => e.key === "Enter" && addPerson()}
         />
         <button onClick={addPerson}>
-          <Plus style={{ height: "15px", marginTop: "1px" }} /> Add person
+          <Plus style={{ height: "15px", marginTop: "5px" }} /> Add person
         </button>
       </div>
 
@@ -89,7 +89,7 @@ export default function Person() {
               gap: "6px",
               color: "#333",
               cursor: "default",
-              background: "#f5f5f5",
+              background: "var(--light-grey)",
             }}
           >
             {p.name}
@@ -112,9 +112,9 @@ export default function Person() {
         <p>Assign items</p>
         <p
           style={{
-            border: "1.5px solid #939393ff",
-            padding: "5px",
-            borderRadius: "10px",
+            border: "1.5px solid var(--light-grey)",
+            padding: "5px 10px",
+            borderRadius: "15px",
             fontSize: "15px",
             cursor: "pointer",
           }}
@@ -148,35 +148,40 @@ export default function Person() {
           <div
             key={item.id}
             style={{
-              display: "flex",
-              justifyContent: "space-between",
+              // display: "flex",
+              // justifyContent: "space-between",
               marginTop: "10px",
               alignItems: "center",
               color: "#333",
+              padding: "10px",
+              borderRadius: "6px",
               cursor: "default",
-              background: "#f5f5f5",
+              background: "inherit  "
+              ,border:"1px solid var(--light-grey)"
             }}
           >
+            <div style={{ display: "flex", justifyContent:"space-between" }}>
             <span>{item.name}</span>
             <span>₹{item.price}</span>
-
+</div>
             {splitMode === "items" && (
-              <div style={{ display: "flex", gap: "6px", marginLeft: "10px" }}>
+              <div style={{ display: "flex", gap: "6px"}}>
                 {people.map((p) => (
                   <span
                     key={p.id}
                     onClick={() => toggleAssign(item.id, p.id)}
                     style={{
-                      border: "1px solid grey",
+                      border: "1px solid var(--light-grey)",
                       padding: "2px 10px",
+                      marginTop: "6px",
                       borderRadius: "20px",
                       cursor: "pointer",
                       background: (assignments[item.id] || []).includes(p.id)
                         ? "#d44326"
-                        : "#f5f5f5",
+                        : "white",
                       color: (assignments[item.id] || []).includes(p.id)
                         ? "white"
-                        : "black",
+                        : "var(--dark-grey)",
                     }}
                   >
                     {p.name}
@@ -198,7 +203,8 @@ export default function Person() {
         className="homeBtn"
         width="100%"
         name="Continue"
-        fontSize="16px"
+        icon={ArrowBigRight}
+        fontSize="18px"
         color="#f8f8ff"
         bg_color="#d44326"
         onClick={() =>

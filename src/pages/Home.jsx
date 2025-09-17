@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import QR from "../assets/QR.png";
 import "../styles/Global.css";
-import { Camera } from "lucide-react";
+import { Camera, Keyboard } from "lucide-react";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -30,6 +30,7 @@ export default function Home() {
 
         <Button
         className={"homeBtn"}
+        icon={Keyboard}
           name={"Enter Manually"}
           color={"black"}
           bg_color={"white"}

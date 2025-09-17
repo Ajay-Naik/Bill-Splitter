@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Backbutton from "../components/BackButton.jsx";
 import Button from "../components/Button.jsx";
+import { House, Files  } from "lucide-react";
 
 export default function Summary() {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ export default function Summary() {
   };
 
   return (
-    <div style={{ padding: "20px", width: "400px", height: "600px" }}>
+    <div style={{ width: "400px", height: "600px" }}>
       <Backbutton onClick={() => navigate("/person")} />
       <h2 style={{ textAlign: "center" }}>Split Summary</h2>
       <p>Here is how you should split this bill:</p>
@@ -102,11 +103,11 @@ export default function Summary() {
               borderRadius: "6px",
               color: "#333",
               cursor: "default",
-              background: "#f5f5f5",
+              background: "var(--light-grey)",
             }}
           >
-            <span style={{ fontWeight: "500" }}>{p.name}</span>
-            <span>₹{totals[p.id].toFixed(2)}</span>
+            <span style={{color:"black",backgroundColor:"transparent" }}>{p.name}</span>
+            <span style={{backgroundColor:"transparent"}}>₹{totals[p.id].toFixed(2)}</span>
           </div>
         ))}
       </div>
@@ -147,6 +148,8 @@ export default function Summary() {
         className="homeBtn"
         width="100%"
         name="Share"
+            icon={Files}
+
         fontSize="16px"
         color="#f8f8ff"
         bg_color="#d44326"
@@ -156,7 +159,9 @@ export default function Summary() {
       <Button
         className="homeBtn"
         width="100%"
-        name="Done"
+            icon={House}
+
+        name="Back Home"
         fontSize="16px"
         color="black"
         bg_color="#ffffff"

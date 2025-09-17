@@ -12,12 +12,15 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "bootstrap": "^4.6.2",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
     "react-drag-drop-files": "^3.1.0",
     "react-dropzone": "^14.3.8",
     "react-router-dom": "^7.8.2",
+    "react-spinners": "^0.17.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

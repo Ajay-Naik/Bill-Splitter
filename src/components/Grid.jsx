@@ -15,7 +15,7 @@ let styles ={
           border: "transparent",
           fontSize: 15,
           borderRadius: "5px",
-          backgroundColor: "#cdc9c9ff",
+          backgroundColor: "var(--light-grey)",
           padding: "10px",
           width: "100px",
           height: "2.8rem"
@@ -60,7 +60,7 @@ export default function Grid({ name, data, onChange }) {
           onChange({ ...data, amount: val === "" ? "" : parseFloat(val) });
         }}
         className="taxTipInput"
-        style={{ width: "80px", height: "1.5rem", fontSize: 16 }}></input>
+        style={{ width: "80px", height: "2.8rem", fontSize: 16,padding:"10px",backgroundColor:"var(--light-grey)" }}></input>
 
       <span
         placeholder="0.00"
@@ -68,8 +68,8 @@ export default function Grid({ name, data, onChange }) {
         {" "}
         {data.amount
           ? data.type === "%"
-            ? `${data.amount}%`
-            : `₹ ${data.amount}`
+            ? `${data.amount.toFixed(2)}%`
+            : `₹ ${data.amount.toFixed(2)}`
           : "0.00"}
       </span>
     </div>
