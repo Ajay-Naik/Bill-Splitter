@@ -2,7 +2,7 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import Camera from "../assets/camera.png";
 
-function FileDropZone({ onFileSelect }) {   // accept prop
+export default function FileDropZone({ onFileSelect }) {   // accept prop
   const [previews, setPreviews] = React.useState([]);
 
   const onDrop = React.useCallback((acceptedFiles) => {
@@ -39,7 +39,8 @@ function FileDropZone({ onFileSelect }) {   // accept prop
         backgroundColor: "	#E5E4E2",
         borderRadius: "8px",
         padding: "20px",
-        // margin: "20px 0",
+        minWidth:"400px",
+        marginBottom: "10px",
         textAlign: "center",
         cursor: "pointer",
       }}>
@@ -76,6 +77,8 @@ function FileDropZone({ onFileSelect }) {   // accept prop
               alt={file.name}
               style={{
                 maxWidth: "100%",
+                minWidth:"400px",
+                maxHeight:"500px",
                 height: "auto",
                 marginTop: "20px",
                 borderRadius: "8px",
@@ -89,4 +92,4 @@ function FileDropZone({ onFileSelect }) {   // accept prop
   );
 }
 
-export default FileDropZone;
+
