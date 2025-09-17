@@ -3,17 +3,118 @@ import Button from "../components/Button.jsx";
 import Backbutton from "../components/BackButton.jsx";
 import "../styles/Global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Tesseract from "tesseract.js";
 
 import FileDropZone from "../components/input.jsx";
 import { Spinner } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { ReceiptIndianRupee } from "lucide-react";
 
+async function analyzeBill(ocrText) {
+  try {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`, // .env key
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant that extracts structured data from receipts."
+          },
+          {
+            role: "user",
+            content: `
+            Here is the receipt text:
+            ${ocrText}
+
+            Extract the data in JSON with keys:
+            items (array of {name, price, quantity, rate}),
+            tax,
+            tip,
+            total.
+            Only return JSON, no extra text.
+            `
+          }
+        ],
+      }),
+    });
+
+    const result = await response.json();
+
+    // Step 1: Get raw content from assistant
+    let rawContent = result?.choices?.[0]?.message?.content;
+    if (!rawContent) {
+      console.warn("No content returned from OpenRouter.");
+      return null;
+    }
+
+    // Step 2: Remove Markdown code blocks if present
+    rawContent = rawContent.replace(/```json|```/g, "").trim();
+
+    // Step 3: Parse JSON safely
+    try {
+      return JSON.parse(rawContent);
+    } catch (err) {
+      console.warn("Failed to parse JSON from OpenRouter response.");
+      console.log("Raw content:", rawContent);
+      return null; // fallback
+    }
+  } catch (err) {
+    console.error("Error calling OpenRouter:", err);
+    return null;
+  }
+}
+
+
+
 export default function Scanner() {
   const navigate = useNavigate();
+  
   const [loading, setLoading] = useState(false);
   const [stage, setStage] = useState("Scanning...");
   const [image, setImage] = useState(null);
+
+ // 🔹 Extract text from image
+  async function extractText(file) {
+    setStage("Running OCR...");
+    const { data: { text } } = await Tesseract.recognize(file, "eng");
+    return text;
+  }
+
+  // 🔹 Full scan flow
+  const handleScan = async () => {
+    if (!image) return;
+    setLoading(true);
+
+    try {
+      // Step 1: OCR
+      const text = await extractText(image.preview);
+
+      // Step 2: Send to LLaMA
+      setStage("Analyzing with LLaMA...");
+      const structured = await analyzeBill(text);
+
+      if (structured) {
+        // Step 3: Save to localStorage
+        localStorage.setItem("billData", JSON.stringify(structured));
+
+        // Step 4: Navigate to person page
+        navigate("/person");
+      } else {
+        setStage("Error extracting data.");
+      }
+    } catch (err) {
+      console.error(err);
+      setStage("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   // simulate scanning stages
   useEffect(() => {
@@ -104,9 +205,7 @@ export default function Scanner() {
         name={"Scrape the bill"}
         color={"#f8f8ff"}
         bg_color={"#d44326"}
-        onClick={() => {
-          if (image) setLoading(true);
-        }}
+        onClick={handleScan}
       />
 
       {/* scanning animation keyframes */}
