@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Scanner from "./pages/Scanner.jsx";
 import Manual from "./pages/Manual.jsx";
@@ -9,7 +9,7 @@ import Summary from "./pages/Summary.jsx";
 import "./styles/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <HashRouter>
+  <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/scanner" element={<Scanner />} />
@@ -18,6 +18,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/summary" element={<Summary />} />
 
     </Routes>
-  </HashRouter>
+  </BrowserRouter>
 );
 

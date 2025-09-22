@@ -80,7 +80,7 @@ export default function Scanner() {
 
  // 🔹 Extract text from image
   async function extractText(file) {
-    setStage("Running OCR...");
+    setStage("Still Scanning...");
     const { data: { text } } = await Tesseract.recognize(file, "eng");
     return text;
   }
@@ -95,7 +95,7 @@ export default function Scanner() {
       const text = await extractText(image.preview);
 
       // Step 2: Send to LLaMA
-      setStage("Analyzing with LLaMA...");
+      setStage("Looking at receipt...");
       const structured = await analyzeBill(text);
 
       if (structured) {

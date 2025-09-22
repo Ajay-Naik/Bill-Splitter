@@ -68,8 +68,8 @@ export default function Grid({ name, data, onChange }) {
         {" "}
         {data.amount
           ? data.type === "%"
-            ? `${data.amount.toFixed(2)}%`
-            : `₹ ${data.amount.toFixed(2)}`
+            ? `${(subtotal * data.amount) / 100}%`
+            : `₹ ${data.amount}`
           : "0.00"}
       </span>
     </div>
