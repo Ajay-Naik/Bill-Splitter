@@ -9,7 +9,7 @@ lerna-debug.log*
 
 node_modules
 .env
-.gitignore
+
 *.local
 
 # Editor directories and files
@@ -22,3 +22,5 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
+
+/.gitignore
