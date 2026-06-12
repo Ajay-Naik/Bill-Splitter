@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Plus, X, ArrowBigRight } from "lucide-react";
 import Button from "../components/Button.jsx";
@@ -10,13 +10,31 @@ export default function Person() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // items, tax, tip come from Manual.jsx
-  const { items = [], tax, tip } = location.state || {};
-
   const [people, setPeople] = useState([]);
   const [nameInput, setNameInput] = useState("");
-  const [assignments, setAssignments] = useState({}); // { itemId: [personIds] }
-  const [splitMode, setSplitMode] = useState("evenly"); // "evenly" | "items"
+  const [assignments, setAssignments] = useState({});
+  const [splitMode, setSplitMode] = useState("evenly");
+
+  // Get items, tax, tip from location.state OR localStorage for Scanner
+  const [items, setItems] = useState([]);
+  const [tax, setTax] = useState(0);
+  const [tip, setTip] = useState(0);
+
+  useEffect(() => {
+    if (location.state?.items) {
+      setItems(location.state.items);
+      setTax(location.state.tax || 0);
+      setTip(location.state.tip || 0);
+    } else {
+      const scannerBill = localStorage.getItem("scannerBill");
+      if (scannerBill) {
+        const parsed = JSON.parse(scannerBill);
+        setItems(parsed.items || []);
+        setTax(parsed.tax || 0);
+        setTip(parsed.tip || 0);
+      }
+    }
+  }, [location.state]);
 
   const addPerson = () => {
     if (!nameInput.trim()) return;
@@ -27,12 +45,9 @@ export default function Person() {
 
   const removePerson = (id) => {
     setPeople((prev) => prev.filter((p) => p.id !== id));
-    // cleanup from assignments
     const newAssignments = {};
     for (let itemId in assignments) {
-      newAssignments[itemId] = (assignments[itemId] || []).filter(
-        (pid) => pid !== id
-      );
+      newAssignments[itemId] = (assignments[itemId] || []).filter(pid => pid !== id);
     }
     setAssignments(newAssignments);
   };
@@ -43,7 +58,7 @@ export default function Person() {
       return {
         ...prev,
         [itemId]: current.includes(personId)
-          ? current.filter((pid) => pid !== personId)
+          ? current.filter(pid => pid !== personId)
           : [...current, personId],
       };
     });
@@ -54,7 +69,6 @@ export default function Person() {
       <Backbutton onClick={() => navigate("/manual")} />
       <h2>Who paid for what?</h2>
 
-      {/* Input for adding person */}
       <div className="input-wrapper">
         <input
           type="text"
@@ -68,15 +82,7 @@ export default function Person() {
         </button>
       </div>
 
-      {/* Pills for people */}
-      <div
-        style={{
-          display: "flex",
-          gap: "8px",
-          flexWrap: "wrap",
-          marginTop: "10px",
-        }}
-      >
+      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "10px" }}>
         {people.map((p) => (
           <span
             key={p.id}
@@ -101,14 +107,7 @@ export default function Person() {
         ))}
       </div>
 
-      {/* Toggle Split Mode */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "20px",
-        }}
-      >
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
         <p>Assign items</p>
         <p
           style={{
@@ -119,51 +118,34 @@ export default function Person() {
             cursor: "pointer",
           }}
           onClick={() =>
-            setSplitMode((prev) => (prev === "evenly" ? "items" : "evenly"))
+            setSplitMode(prev => (prev === "evenly" ? "items" : "evenly"))
           }
         >
           {splitMode === "evenly" ? "Split Evenly" : "Split by Items"}
         </p>
       </div>
 
-      {/* Item list with assignment */}
-      <div
-        className="assignItems"
-        style={{ padding: "5px", marginTop: "10px", marginBottom: "10px" }}
-      >
+      <div className="assignItems" style={{ padding: "5px", marginTop: "10px", marginBottom: "10px" }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <span
-            style={{ fontSize: "17px", fontWeight: "500", color: "#4b4b4bff" }}
-          >
-            Item
-          </span>
-          <span
-            style={{ fontSize: "16px", fontWeight: "500", color: "#4b4b4bff" }}
-          >
-            Price
-          </span>
+          <span style={{ fontSize: "17px", fontWeight: "500", color: "#4b4b4bff" }}>Item</span>
+          <span style={{ fontSize: "16px", fontWeight: "500", color: "#4b4b4bff" }}>Price</span>
         </div>
 
         {items.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              // display: "flex",
-              // justifyContent: "space-between",
-              marginTop: "10px",
-              alignItems: "center",
-              color: "#333",
-              padding: "10px",
-              borderRadius: "6px",
-              cursor: "default",
-              background: "inherit  "
-              ,border:"1px solid var(--light-grey)"
-            }}
-          >
+          <div key={item.id} style={{
+            marginTop: "10px",
+            alignItems: "center",
+            color: "#333",
+            padding: "10px",
+            borderRadius: "6px",
+            cursor: "default",
+            background: "inherit",
+            border: "1px solid var(--light-grey)"
+          }}>
             <div style={{ display: "flex", justifyContent:"space-between" }}>
-            <span>{item.name}</span>
-            <span>₹{item.price}</span>
-</div>
+              <span>{item.name}</span>
+              <span>₹{item.price}</span>
+            </div>
             {splitMode === "items" && (
               <div style={{ display: "flex", gap: "6px"}}>
                 {people.map((p) => (
@@ -194,9 +176,7 @@ export default function Person() {
       </div>
 
       <span style={{ fontSize: "14px", color: "#808080" }}>
-        {splitMode === "items"
-          ? "Click a person to assign items"
-          : "Bill will be split evenly"}
+        {splitMode === "items" ? "Click a person to assign items" : "Bill will be split evenly"}
       </span>
 
       <Button

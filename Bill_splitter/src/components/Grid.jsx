@@ -21,7 +21,7 @@ let styles ={
           height: "2.8rem"
 }
 
-export default function Grid({ name, data, onChange }) {
+export default function Grid({ name, data, onChange, subtotal = 0 }) {
   const handleTypeChange = (e) => {
     onChange({ ...data, type: e.target.value });
   };
@@ -63,13 +63,12 @@ export default function Grid({ name, data, onChange }) {
         style={{ width: "80px", height: "2.8rem", fontSize: 16,padding:"10px",backgroundColor:"var(--light-grey)" }}></input>
 
       <span
-        placeholder="0.00"
         style={{ backgroundColor: "inherit", color: "black", fontSize: 18 }}>
         {" "}
         {data.amount
           ? data.type === "%"
-            ? `${(subtotal * data.amount) / 100}%`
-            : `₹ ${data.amount}`
+            ? `₹${((subtotal * data.amount) / 100).toFixed(2)}`
+            : `₹${parseFloat(data.amount).toFixed(2)}`
           : "0.00"}
       </span>
     </div>

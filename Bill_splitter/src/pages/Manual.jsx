@@ -84,8 +84,8 @@ export default function Manual() {
           bg_color="var(--light-grey)"
           onClick={addItem}
         />
-        <Grid name="Tax" data={tax} onChange={(newData) => setTax(newData)} />
-        <Grid name="Tip" data={tip} onChange={(newData) => setTip(newData)}/>
+        <Grid name="Tax" data={tax} subtotal={subtotal} onChange={(newData) => setTax(newData)} />
+        <Grid name="Tip" data={tip} subtotal={subtotal} onChange={(newData) => setTip(newData)}/>
       
         <div style={{ marginTop: 12, color: "#282828ff", fontSize: 18,width:"100%",display:"flex",justifyContent:"space-between" }}>
           <strong>Total: </strong><span style={{}}> ₹  {grandTotal.toFixed(2)}</span>
